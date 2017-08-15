@@ -1,0 +1,21 @@
+{extends "../Common/default.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>提交成功
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="submitsuccess success_sty">
+        <img src="{$smarty.const.IMG_URL}success.png">        
+    </div>
+    <div class="submitsuccess_text">您的需求已提交成功， <br>我们的工作人员将尽快与您取得联系，<br>请耐心等待 </div>
+           
+</div>
+<div class="submit_button" id="submit"  onclick="WeixinJSBridge.call('closeWindow');">确认</div>
+
+<SCRIPT type="text/javascript">    
+    
+</SCRIPT>
+
+{/block}

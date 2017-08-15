@@ -1,0 +1,84 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>预约
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>        
+    <div class="baibg all_padd">
+
+        <!--
+        <div class="yuyue_box">            
+            <div class="yuyue_date left"><span class="yuyue_day">25</span>2016.5</div>
+            <div class="yuyue_info all_text left"><span class="input_title">时间段：</span>10:00-11:00<br><span class="input_title">可预约数量：</span>5</div>
+            <div class="getvricode yuyue_button">确定预约</div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="bottom_line"></div> 
+        -->
+		
+        <div id="list_box"></div>
+    </div>
+	<div class="orderbg" id="orderbg6" style="display:none">
+		<div class="orderbg_yuan">
+			<div class="order_null"></div>
+		</div>                        
+	</div>
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+        //获取数据
+        var areacode = "{$smarty.session.areacode}";
+        var matterscode = sessionStorage.getItem('shxiiangcode');
+        $.ajax({
+            type: "POST",
+            url: "../appointment/getshowlistaction",
+            data: {
+                "areacode": areacode,
+                "matterscode": matterscode
+            },
+            success: function (msg) {			
+                var data = JSON.parse(msg);
+				if(data.result==0){					
+					$("#orderbg6").css("display","block");
+					return false;					
+				}
+                data.datalist = data.datalist.reverse();
+                $.each(data.datalist, function (i) {
+                    var day = data.datalist[i].datatime.substring(8, 11);//截取"2017-02-22"中的22
+                    var YN = data.datalist[i].datatime.replace("-", ".");//把"2017-02-22"变成“2017.02.22”
+                    var YN = YN.substr(0, 7);//截取“2017.02”                    
+                    var datatime = data.datalist[i].datatime;
+                    var begintime = data.datalist[i].begintime;
+                    var endtime = data.datalist[i].endtime;
+                    $("#list_box").prepend('<div class="yuyue_box"><div class="yuyue_date left"><span class="yuyue_day">' + day + '</span>' + YN + '</div><div class="yuyue_info all_text left"><span class="input_title">时间段：</span>' + data.datalist[i].begintime + '-' + data.datalist[i].endtime + '<br><span class="input_title">可预约数量：</span><span id="yynum' + i + '">' + data.datalist[i].remainingcount + '</span></div><div id="num' + i + '" class="getvricode yuyue_button yuyue_hui" onclick="" datatime = "' + datatime + '" begintime = "' + begintime + '" endtime = "' + endtime + '">确定预约</div><div class="clear"></div></div><div class="clear"></div><div class="bottom_line"></div>');
+                    var yynum = $("#yynum" + i).html();
+                    if (yynum !== '0') {
+                        $("#num" + i).removeClass("yuyue_button").removeClass("yuyue_hui").addClass("yuyue_buttonred");
+                    }
+                });
+                //点击具体部门的时候
+                $(document).on("click", ".yuyue_button", function () {
+                    layer.open({
+                        content: '暂无可预约数量',
+                        time: 2,
+                        shadeClose: true
+                    });
+                    return false;
+                });
+                $(document).on("click", ".yuyue_buttonred", function () {
+                    var datatime = $(this).attr("datatime");
+                    var begintime = $(this).attr("begintime");
+                    var endtime = $(this).attr("endtime");
+                    sessionStorage.setItem('datatime', datatime);
+                    sessionStorage.setItem('begintime', begintime);
+                    sessionStorage.setItem('endtime', endtime);
+                    location.href = "../appointment/addinfo";
+                });
+            }
+        });
+    });
+</SCRIPT>
+{/block}

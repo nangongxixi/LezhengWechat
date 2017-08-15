@@ -1,0 +1,75 @@
+{extends "../Common/default.html"}
+{block name="main"}
+	<script>
+	if(window.name != "bencalie"){
+		location.reload();
+		window.name = "bencalie";
+	}
+	else{
+		window.name = "";
+	}
+</script> 
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>区域选择
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div style="line-height: 260%; padding-left: 3.5%; font-weight: bold" class="baibg input_title">成都市</div>    
+    <div class="all_padd input_itemselect">        
+        <div id="areainfo"></div>
+        <div class="clear"></div>
+    </div>    
+</div>
+
+<SCRIPT type="text/javascript">
+
+//保存被点击的值并跳转到上一页    
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "../need/AreaSelectAction",
+            success: function (msg) {			
+                var data = JSON.parse(msg);
+                data.datalist = data.datalist.reverse();
+                $.each(data.datalist, function (i) {
+                    $("#areainfo").prepend('<div class="area_selectitem" onclick="" hotline="'+data.datalist[i].hotline+'" areacode="' + data.datalist[i].areacode + '"   id="' + data.datalist[i].areaid + '">' + data.datalist[i].areaname + '</div>');
+                });
+                //改变当前选中的项目的背景        
+                var areaid = "{$smarty.session.areaid}";
+                $("#" + areaid).removeClass("area_selectitem").addClass("area_selectitemred");	
+            }
+        });		
+		//点击选项并保存项目
+		$(document).on("click", ".area_selectitem", function () {			
+			var area = $(this).html();
+			var areaid = $(this).attr("id");
+			var hotline = $(this).attr("hotline");
+			var areacode = $(this).attr("areacode");
+			sessionStorage.setItem('area', area);
+			sessionStorage.setItem('areaid', areaid);
+			sessionStorage.setItem('areacode', areacode);
+			sessionStorage.setItem('hotline', hotline);
+			//把js获取到的sessionstorage区域值保存到PHP的session里面
+			$.ajax({
+				type: "POST",
+				url: "../need/BaocunAreaAction",
+				data: {
+					"area": area,
+					"areaid": areaid,
+					"areacode": areacode,
+					"hotline": hotline
+				}
+			});		
+			location.href = "../index/index";			
+			//window.close();
+		});
+		
+    });
+    
+    $(document).on("click", ".area_selectitemred", function () {		
+        location.href = "../index/index";
+    });
+  
+</SCRIPT>
+
+{/block}

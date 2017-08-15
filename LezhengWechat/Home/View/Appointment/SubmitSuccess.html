@@ -1,0 +1,26 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>预约成功
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="submitsuccess success_sty">
+        <img src="{$smarty.const.IMG_URL}gongnengpic.png">        
+    </div>
+    <div class="submitsuccess_text success_top"><span class="success_red">预约成功啦~</span></div>       
+</div>
+<div class="submit_button" id="submit">返回首页</div>
+
+<SCRIPT type="text/javascript">
+    $(function () {
+        var areaval = sessionStorage.getItem('itemid');
+        $("#" + areaval).attr("class", "").addClass("area_selectitemred");
+    });
+    $("#submit").on("click", function () {        
+        location.href = "../index/index";
+    });
+</SCRIPT>
+
+{/block}

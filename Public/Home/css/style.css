@@ -1,0 +1,281 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.ui-mobile-viewport {-webkit-tap-highlight-color:rgba(90,90,90,0.2)}
+body,ul,li{margin:0; padding:0; background-color: #f1f1f1}
+html {overflow-x:hidden;-webkit-text-size-adjust:none}
+ul,li,dl,dt,dd {display:block;list-style:none; background-color: #fff}
+fieldset,img {border:0;}
+/*勿删，解决滚动图片ie样式问题*/
+img {border:0;max-width:100%}
+.clear {background:none;border:0;clear:both;display:block;float:none;font-size:0;overflow:hidden;visibility:hidden;width:0;height:0}
+/*万能清楚浮动CSS样式*/
+.clearfloat:after{content:".";height:0px;visibility:hidden;display:block;clear:both}
+.left{float:left}
+.right{float:right}
+.middle_center{display:block; margin:0px auto; text-align:center; padding: 0px}
+h4{display:inline}
+a {text-decoration:none;outline:none}
+#page1 {overflow:auto}
+.contt {width:100%;overflow:auto;z-index:1;background-size:100%;margin:0px auto;padding:0px; font-family: "微软雅黑"; font-size: 16px}
+.contt_padd{margin-bottom: 0px!important}
+::-webkit-input-placeholder{color:#bbb;}
+::-moz-placeholder{color:#bbb;}
+:-moz-placeholder{color:#bbb;}
+/* 全局定义 */
+.all_padd {padding:0 3.5%}
+.all_text {line-height: 160%}
+.navstyle {height:50px; line-height: 50px; text-align: center; background-color: #393a3f; font-size: 18px; color:#fff; letter-spacing: 2px; display:none}
+.navjiantou {position: absolute; height:50px; left:0; padding: 0 2%}
+.headimg {width:19px; position: absolute; top:16px; right: 3.5%}
+.fenge {height:1.5%; border-top:#e1e1e1 solid 1px; border-bottom:#e1e1e1 solid 1px}
+.jibenxx{line-height: 27px; padding:0px 0px 0px 10px; font-weight: bold}
+.baibg {background-color: #fff}
+.input_padd {padding: 10px 0px; position: relative;  overflow: hidden}
+.input_box {outline:none; border:0px; width:70%; font-size: 16px; color:#666}
+.input_title {color:#333}
+.delinput{width:20px; right:0; top:0; position: absolute; padding:10px 10px 0px 0px}
+.bottom_line {border-bottom: 1px solid #ececec}
+.conntbottom_line {border-bottom: 1px solid #e1e1e1}
+.submit_button{width:93%; margin:3.5% auto;border:none;text-align: center; height:40px; line-height: 40px;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px; color:#fff; background-color: #e82822; letter-spacing: 2px}
+.submit_buttonhui{width:93%; margin:3.5% auto;border:none;text-align: center; height:40px; line-height: 40px;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px; color:#fff; background-color: #c1c1c1; letter-spacing: 2px}
+.textarea_padd{padding:0}
+.textarea_box{width:100%; font-size:16px; height:120px; border:1px solid #ececec; resize:none; padding:8px; line-height: 160%; margin-bottom: 4%;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px;}
+/* 首页 */
+.index_bg{background-size:100%; background-color:#fbf2eb}
+.index_positona {position: absolute; top:10px; width:100%}
+.index_box1 {margin:3.5% 10%}
+.index_box2 { margin: 0 auto 2%; text-align: center; width: 150px}
+.index_box3 {margin:0 7.5%}
+.index_topimg {width:100%}
+.index_personico {width: 27px}
+.index_helpico {width: 27px}
+.index_positionico {width: 27px}
+.index_positionname {font-size: 20px; color:#444; display: block; margin:0 0 0 5px}
+.index_blackbg {background: rgba(0,0,0,0.5); letter-spacing: 1px; color:#fff; line-height: 40px; text-align: center; width:85%; height:40px; -moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius:3px}
+.zhizzx {background: url('../img/zzzx.png') no-repeat center 50px; background-size:50%;  padding:59% 0 0 0}
+.zhizzx_text {font-size:18px; font-weight: bold; letter-spacing: 1px; line-height: 180%}
+.zhizzx_pos {top:44.5% !important}
+
+
+.index_icobox {width: 33%; float: left;  padding: 5% 0;  border-bottom: 1px solid #e3e0dc;  border-right: 1px solid #e3e0dc}
+.index_icoimg {width:50%; padding: 0 25%}
+.index_icobox_text {text-align: center; margin:0 auto; color:#666; padding: 5px 0 0 0}
+.index_icobox_right {border-right: 0px}
+.index_botomtext {width:50%; margin: 5% 25% 8% 25%;}
+
+/* 个人事项 */
+.input_jiantou{width:17px; right:0; top:3px; position: absolute; padding:10px 0px 0px 0px}
+.area_select{width:70%; float:right; background-color: red; height:100px; margin: 0.5% 3.5% 0 0}
+.input_itemselect {padding:20px 0 10px 13px}
+.area_selectitem {width: 29%; margin: 0 3.5% 3.5% 0; overflow: hidden; border: 1px solid #999; text-align: center; height: 40px; line-height: 40px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; color: #333; letter-spacing: 2px; float: left; background-color: #fff;}
+.area_selectitemred {width:29%; margin:0 3.5% 3.5% 0;overflow: hidden; border: 1px solid #e82822; text-align: center; height:40px; line-height: 40px;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px; color:#fff; background-color: #e82822; letter-spacing: 2px; float:left}
+.submitsuccess {width:20%; margin: 10% auto 15%}
+.submitsuccess_width {width:41%}
+.submitsuccess_text {width:100%; text-align: center; font-size: 14px; color:#555; margin:5% 0 0 0}
+.input_paddmin{padding: 5px 0px;}
+.jianj{height:1%}
+/* 企业业务 */
+.input_bg {background-color: #fafafa}
+/* 事项查询 */
+.sear_box {margin: 2.5% 0; position: relative; height:35px}
+.sear_input {width:100%;border:1px solid #e1e1e1; padding:0px 0 0px 30px; height:35px; line-height: 20px;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px; color:#666}
+.sear_input_keyup {padding:0 0 0 30px;}
+.searimg {width:15px; position: relative; top:-25px; left:10px}
+.sear_button {width: 45px; position: relative; border-left: 1px solid #f1f1f1; padding: 0 0 4px 13px; color: #666; float: right; margin: -25px 0 0 0; line-height: 14px;}
+.sear_del {position: relative; float: right;  margin: -38px 70px 0 0}
+/* 部门展示 */
+.department_item {width:24.75%; float: left; padding:5% 0; border-bottom: 1px solid #f1f1f1; border-right: 1px solid #f1f1f1}
+.department_item_right {border-right: 0px solid #f1f1f1}
+.department_item_img {width:30%; padding: 25% 35% 0}
+.department_item_text {width:100%; text-align: center; font-size: 14px; color:#333; padding:5% 0 15%; margin:0; font-family:"微软雅黑"; height:30px}
+/* 事项列表 */
+.shixiangitem {line-height: 50px; width:100%; overflow: hidden; height:50px}
+.shixiang_line {border-bottom:1px solid #ececec}
+.bumentitle {position: relative; bottom: 5px;}
+.shixiangicon {width:22px; margin:0 8px 0 3.5%; position: relative; margin-top: 15px;}
+/* 事项列表详情 */
+#navtab .title{overflow:hidden;zoom:1;}
+#navtab .title li{float:left; width:25%; text-align: center; border-top:#e1e1e1 solid 0px;border-bottom:#e1e1e1 solid 1px; line-height: 300%; color:#666}
+#navtab .title .active{color:#e82822; border-bottom: 2px solid #e82822}
+
+.title_box {padding:3.5% 0; border-top:1px solid #ececec; width:93%; margin: 0 auto; color:#333}
+.shixiang_title {font-weight: bold;position: relative; top: -4;}
+
+.pingjia_box{width:93%; margin:0 auto}
+.pingjia_left {width:14%}
+.userheadimg {border:0.5% solid rgba(255,255,255,0.8); -moz-border-radius: 40px; -webkit-border-radius: 40px; border-radius:40px; behavior:url(PIE.htc)}
+.pingjiahead {position:static !important}
+.pingjialine {margin:3.5% 0; background-color:#f1f1f1}
+.pingjia_right {width:80%}
+.pingjia_title {color:#2959ae; font-size: 14px; line-height: 14px; width:100%}
+.pingjia_date {font-size: 12px; color:#999}
+.pingjia_content {width:100%; line-height: 170%;  padding: 1% 0 0 0;}
+.shixiang_line_mar {margin:3.5% auto}
+.pinglun_more {text-align: center; padding:0 0 5% 0}
+/* 添加信息确认页面 */
+.message_kongge{padding:0 3.5% 3.5%}
+.mianzxy {text-align: center; line-height: 180%; font-size:13px; padding-top:3.5%}
+.mianzxy_text {color:#e92823}
+.mianzexy_padd {padding:3.5%}
+/* 提交成功页面 */
+.success_box {line-height: 200%;}
+.success_tel {color:#007fff; line-height: 200%; position: relative; top:-5px; font-size: 16px; left:3px}
+/* 登录 */
+.loginico { width: 23px; position: relative;  top: -2px; float: left; padding: 0 10px;}
+.loginitem {margin:3.5% 0 0 0; -moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px; border:1px #ececec solid}
+.wangjmm {color:#999}
+.bindwx{width:80%;display:block; margin:0 auto}
+.bindwxbtn{margin:7% auto 0}
+.bindwx_border{border-bottom: 1px #ececec solid;}
+/* 注册 */
+.getvricode{width: 60px; margin-top:4%; text-align: center; padding: 0 5px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #e82822; border: 1px solid #e82822; font-size: 12px; line-height: 200%; float: right; position: absolute; top: 0; right:0}
+.getvricode_time{color:#666; border: 1px solid #666;}
+.vricode_del {padding: 10px 78px 0px 0px;}
+/* 预约列表 */
+.yuyue_box {padding: 3.5% 0}
+.yuyue_date {width:14%; background-color: #eee; padding:7px; text-align: center; color:#999; font-size: 13px; line-height: 13px; transform:scale}
+.yuyue_day {font-size: 35px; display: block; padding:0; line-height: 35px; overflow: hidden}
+.yuyue_info {margin:1.5% 0 0 3%; color:#666}
+.yuyue_button {top:12px; padding: 1px 5px; position: static;}
+.yuyue_buttonred { background-color: #e82822;color: #fff;  border: 1px solid #e82822; position: static}
+.yuyue_hui{color:#999;border: 1px solid #999;}
+
+/* 预约信息确认 */
+.shuoming_color {color:#666; padding:3.5% 0 0 0; font-size: 14px}
+.shuoming_title {font-size: 16px; display: block; margin: 0 0 -16px 0;}
+/* 预约成功 */
+.success_sty {margin:10% auto 5%; width:41%}
+.success_top {top:36%}
+.success_red {font-size:18px; color:#e82822}
+/* App下载 */
+.appdown_bg { background-color: #d11315 }
+.appdown_box {width:100%}
+.appdown_button {width: 40%; padding: 10% 30% 30%}
+/* 个人中心 */
+.myinfobg{background: url('../img/myinfobg.png'); background-size:100%}
+.myinfo_button {height:50px; line-height: 50px; padding:0 0 0 13.5%; position: relative}
+.myinfo_ico { position: absolute; top: 10px;  width: 30px; left: 3.5%;}
+.myinfo_jiantou { position: absolute; top: 15px; width: 18px; right: 3.5%;}
+.head_box {padding:7% 0}
+.myinfo_headimg {margin: 0 auto; width:55px}
+.myinfo_headimg_border {border: 1px solid #debc8f; width:55px; height:55px}
+.myinfo_text {text-align: center; padding: 1.5% 0 0 0;}
+.myinfo_name {font-size: 14px; color:#666; text-align:center}
+/* 飞鸽传书 */
+.feigecs_item {-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #f0efed; border: 1px solid #f0efed; width:93%; margin: 3.5% 3.5% 0 3.5%; position: relative}
+.feigecs_title {padding:2.5% 2.5% 0 2.5%; color:#e82822; width: 55%}
+.feigecs_date {color:#999; font-size:14px; position: absolute;  right: 10px;  top: 11px}
+.feigecs_con {margin:2.5%; border-top: 1px solid #f0efed; padding:2.5% 0 0 0}
+.feigcs_sj {color:#999}
+.feigcs_reddian {border-radius: 50%;width: 8px;height: 8px; background-color: #e92823;position: absolute; z-index: 999; right: -4px; top: -4px;}
+.del_feigemsg {background: url('../img/del.png');width: 20px;background-size: 100%;position: absolute;z-index: 999;height: 20px;top: -10px;right: -10px;}
+.feigecs_weid {color:red; font-size: 13px; display:none}
+/* 飞鸽传书为空时 */
+.feigebg{background-color:#f4f1ec; widht:100%;}
+.feigenull_bg{background: url('../img/feigeemail.png'); background-size:100%;height:400px;width:400px;margin:0 auto;}
+/* 我的订单 */
+.orderlist_kuan li{width:20% !important}
+.fenge_bg{background-color: #f1f1f1}
+.order_title {line-height: 14px; width:100%}
+.ordertitle_font {font-weight: bold}
+.ordertitle_xqfont {font-weight: bold; width:65%; line-height:160%}
+.order_status {color:#e82822; font-size: 16px;margin-top:5px}
+.order_status1{line-height: 300%}
+.order_status3{font-weight: bold}
+.order_cancel_button {line-height:180%;-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #333; border: 1px solid #999; width: 25%; margin: 3.5% 0 0 3.5%; text-align: center; float: right}
+.order_lianxzy_button {color: #fff; border: 1px solid #e82822; background-color: #e82822}
+.order_cancel_buttonhui {color: #fff; border: 1px solid #999; background-color: #999}
+.order_ico {width:10%}
+.order_right {width:85%}
+.order_padd {padding:0 0 3.5% 0}
+.order_box {padding:3.5%}
+.order_ba {color:#3ab143}
+.orderbg {background: url('../img/orderbg.png'); background-size:100%; height: 100%}
+.orderbg_yuan {background: url('../img/yuanbg.png') no-repeat center 50px; background-size:80%; height: 100%}
+.order_null {background: url('../img/ordernull.png') no-repeat center -10px; background-size:80%; height: 100%}
+.orderdzf_null{background: url('../img/daizhifunull.png') no-repeat center -10px; background-size:80%; height: 100%}
+.orderslz_null{background: url('../img/shoulizhongnull.png') no-repeat center -10px; background-size:80%; height: 100%}
+.orderdpj_null{background: url('../img/daipingjianull.png') no-repeat center -10px; background-size:80%; height: 100%}
+.order_topline {border-top:0}
+.styled-select select {background: transparent;width: 100%; font-size: 100%; border: 0px; height: 50px; -webkit-appearance: none; color:#666; hide-focus: expression(this.hideFocus=true); outline: none; padding:0 2.5%}
+.styled-select {width: 100%;height: 50px; overflow: hidden; background: url('../img/cancel.png') no-repeat 97.5%; margin: 0 auto;padding:0}
+/* 订单详情 */
+.orderinfo_padd {padding:5px 0 0 0}
+.orderinfo_button {color: #e82822; border: 1px solid #e82822;}
+.orderinfo_status1 {color:#3ab143; font-size: 16px}
+.orderinfo_status_box {width:100%; margin: 3.5% 0 0 0}
+.orderinfo_text_hei {color:#000}
+.orderinfo_status_ico {background: url(../img/redyuan.png) no-repeat top left; height: 100px; width: 10%; background-size: 18px; overflow: hidden}
+.orderinfo_status_lvdaico {background: url(../img/lvyuanline.png) no-repeat top left; max-height:100px; min-height:100px; width: 10%; background-size: 18px; overflow: hidden}
+.orderinfo_status_lvda {background: url(../img/lvyuan.png) no-repeat top left; max-height:100px; min-height:100px; width: 10%; background-size: 18px; overflow: hidden}
+.orderinfo_status_huidaico {background: url(../img/huiyuan.png) no-repeat top left; height: 100px; width: 10%; background-size: 18px; overflow: hidden}
+.orderinfo_status_lvico {background: url(../img/lvyyuan.png) no-repeat top left; height: 100px; width: 10%; background-size: 18px; overflow: hidden}
+.orderinfo_status_huiico {background: url(../img/huiyyuan.png) no-repeat top left; height: 100px; width: 10%; background-size: 18px; overflow: hidden}
+.orderinfo_status_img {width:10%}
+.orderinfo_clz {line-height: 16px; padding:0 0 5px 0}
+.orderinfo_suxian {border-left:1px solid #ccc; height:100%; margin:0 0 0 8px}
+.orderinfo_kongge {margin:3% 0 3.5% 0;}
+.orderinfo_status_info {width:90%}
+.orderinfo_pj {padding:3.5% 0; text-indent: 2em; color:#666}
+.orderinfoht {color:#999; height:25px}
+
+.orderinfo_xqitem{ width:100%}
+.orderinfo_xqtitle{ width:80px; float:left;margin-left: -100%; height:30px}
+.orderinfo_con{ width:100%; float:left;}
+.orderinfo_conin{ margin-left:80px; color:#666 }
+.orderinfo_dzfcolor {color:#2959ae}
+/* 评价 */
+.pingjia_area { width: 100%; height: 120px; border:0; resize:none}
+.pingjia_star_title {width:80px; height:30px}
+/* 我的预约 */
+.myyuyue_text {font-size: 13px; margin:3.5% 0 0 0}
+.myyuyue_ico {width:35px;margin: 7px 10px 0 0}
+.myyuyue_bg {padding:3.5% 0}
+.shixiangcss {display: block; margin: -3px 0 0 0;}
+.myyuyue_titlebox{width:60%}
+.myyuyue_title {color:#333; font-weight: bold}
+.myyuyue_date {color:#999}
+.wodeyuyuenull{background: url('../img/wodeyuyuenull.png') no-repeat center -10px; background-size:80%; height: 100%}
+.myyuyue_null {width: 100%; text-align: middle; line-height: 50px; text-align: center; color: #999;letter-spacing: 2px;}
+
+/* 个人设置 */
+.setinfo_button {height:40px; line-height: 40px; position: relative}
+.setinfo_headbutton {height:50px; line-height: 50px; position: relative}
+.setinfo_jiantou {position: absolute; top: 11px; width: 18px; right:0}
+.setinfo_jiantou1 {right:3.5%}
+.setinfo_headimg {width: 40px; height:40px; position: absolute; top: 5px; right: 0}
+.setinfo_mingc {margin-right: 25px; color:#666}
+.setinfo_address {width:65%; height:40px; overflow: hidden;text-align: right}
+.setinfo_phone {color:#666}
+.setinfo_nichen {background-color: #fafafa}
+/* 修改地址 */
+.address_input{ position: absolute; top: 0; right: 0; margin: 12px 0 0 0; text-align:right; padding:0 7% 0 0}
+
+/*带边框的不固定比例布局*/
+.float-ul{width: 100%}
+.float-ul li{float: left; width: 25%;text-align:center; border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1; -webkit-box-sizing: border-box; -moz-box-sizing: border-box}
+.inline-ul{font-size: 0; *word-spacing: -1px;}
+.inline-ul li{display: inline-block; *display: inline; *zoom: 1; font-size: 14px; vertical-align: top; word-spacing: normal; letter-spacing: normal; width: 20%;}
+@media screen and (-webkit-min-device-pixel-ratio:0){.inline-ul{letter-spacing: -5px;}}
+.table-cell{display: table; width: 100%;}
+.table-cell li{display: table-cell;}
+.flex-ul{display:-webkit-flex; display: flex;  width: 100%;}
+.flex-ul li{-webkit-flex:1; flex:1;}
+
+.zhizzx_button{margin-top:8%}
+
+/*返回首页*/
+.return_index {position:fixed; left:15px; z-index:999; bottom:15px; background-image:url("../img/return_index.png"); background-size:50px;width: 50px;height:50px; overflow:hidden}
+
+/*微信tel*/
+.wxjump_logo{width:12%}
+.wxjump_pic{width:66%; margin:15% 17% 0}
+.wxjump_word{width:90%; margin:8% 5%}
+.wxjump_button{width:90%; margin: 15% auto 0}
+.wxjump_return{width:40%; float: left;margin-left:5%}
+.wxjump_sure{width:40%; float: right;margin-right:5%}
+
+.zixrex{font-size:26px; font-family:"微软雅黑"; text-align:center;margin-bottom:5%; color:#333}
+.xiaozi{font-size:18px; font-family:"微软雅黑"; text-align:center;color:#666; line-height:140%}
+.lans{font-size:18px; font-family:"微软雅黑"; text-align:center;color:#007fff}
+

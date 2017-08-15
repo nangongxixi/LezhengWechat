@@ -1,0 +1,44 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>提交成功
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>
+    <div class="baibg message_kongge">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">订单说明：</div>
+            <div class="clear"></div> 
+        </div>
+        <div class="input_padd input_paddmin">
+            <div class="all_text left input_title " id="message">
+                1.您的订单正在生成中，我们的客服人员将及时与您联系核对信息，完成核对后订单将会生成，您也可以拨打客服人员电话与之取得联系；<br>
+                2.订单生成后，可在我的订单中进行支付；<br>
+                3.可点击“确定”按钮进入“我的订单”；
+            </div>             
+            <div class="clear"></div> 
+        </div>         
+    </div> 
+    <div class="conntbottom_line"></div>
+    <div class="baibg all_padd all_text input_title mianzxy success_box">
+        如果您有任何问题，可与我们联系！
+        <a href="tel:962562">
+            <div>
+                <img src="{$smarty.const.IMG_URL}tel.png" class="tel_ico">
+                <span class="success_tel">962562</span>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="conntbottom_line"></div>
+<div class="submit_button" id="submit" onclick="">确定</div>
+
+<SCRIPT type="text/javascript">  
+    $("#submit").on("click", function () { 
+		location.href = "../myinfo/orderlist";
+    });
+</SCRIPT>
+
+{/block}

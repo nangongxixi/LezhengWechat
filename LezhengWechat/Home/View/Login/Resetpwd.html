@@ -1,0 +1,134 @@
+{extends "../Common/default.html"}
+{block name="main"}
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>密码重置
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>
+    <div class="baibg all_padd">
+        <div class="input_padd bottom_line">
+            <span class="input_title">新密码：</span>&nbsp;&nbsp;&nbsp; <input type="password" name="pwd" value="" placeholder="请输入6-16位密码" id="pwd" maxlength="16" class="input_box all_tex"/>
+            <div class="pwd" style="display: none"><img src="{$smarty.const.IMG_URL}del.png" class="delinput"></div>
+        </div>
+        <div class="input_padd">
+            <span class="input_title">确认密码：</span>&nbsp;<input type="password" name="doublepwd" value="" placeholder="请再输入一次密码" id="doublepwd" maxlength="16" class="input_box all_tex"/>
+            <div class="doublepwd" style="display: none"><img src="{$smarty.const.IMG_URL}del.png" class="delinput"></div>
+        </div>        
+    </div>   
+    <div class="conntbottom_line"></div>   
+    <div class="submit_buttonhui" onclick="">确定</div>
+</div>
+{literal}
+<SCRIPT type="text/javascript">
+    //删除输入,隐藏删除图标
+    $(".pwd").click(function () {
+        $("#pwd").val('');
+        sessionStorage.removeItem('pwd');
+        $(".pwd").css("display", "none");
+    });
+    $("#pwd").focus(function () {
+        var pwd = $("#pwd").val();
+        if (pwd != '') {
+            $(".pwd").css("display", "block");
+        } else {
+            $(".pwd").css("display", "none");
+        }
+    });
+    $("#pwd").keyup(function () {
+        var pwd = $("#pwd").val();
+        sessionStorage.setItem('pwd', pwd);
+        if (pwd != '') {
+            $(".pwd").css("display", "block");
+        } else {
+            $(".pwd").css("display", "none");
+        }
+    });
+    //电话
+    $(".doublepwd").click(function () {
+        $("#doublepwd").val('');
+        sessionStorage.removeItem('doublepwd');
+        $(".doublepwd").css("display", "none");
+    });
+    $("#doublepwd").focus(function () {
+        var doublepwd = $("#doublepwd").val();
+        if (doublepwd != '') {
+            $(".doublepwd").css("display", "block");
+        } else {
+            $(".doublepwd").css("display", "none");
+        }
+    });
+    $("#doublepwd").keyup(function () {
+        var doublepwd = $("#doublepwd").val();
+        sessionStorage.setItem('doublepwd', doublepwd);
+        if (doublepwd != '') {
+            $(".doublepwd").css("display", "block");
+        } else {
+            $(".doublepwd").css("display", "none");
+        }
+    });
+    //删除表单值
+    $(".delinput").on("click", function () {
+        $(".submit_button").attr("class", "").addClass("submit_buttonhui");
+    });
+    //输入后的按钮颜色    
+    $("input,textarea").on("keyup", function () {
+        var pwd = $("#pwd").val();
+        var doublepwd = $("#doublepwd").val();
+        var vricode = $("#vricode").val();
+        if (pwd !== '' && doublepwd !== '' && vricode !== '') {
+            $(".submit_buttonhui").attr("class", "").addClass("submit_button");
+        } else {
+            $(".submit_button").attr("class", "").addClass("submit_buttonhui");
+        }
+    });
+    $(function () {
+        //点击提交按钮时
+        $(document).on("click", ".submit_button", function () {
+            var pwd = $.trim($("#pwd").val());
+            var doublepwd = $.trim($("#doublepwd").val());
+            var phone = sessionStorage.getItem('phone');
+            if (pwd.match(/^(?![^a-zA-Z]+$)(?!\D+$).{6,16}$/ig)) {                
+            }else {
+                layer.open({
+                    content: '请输入6-16位密码（字母+数字）',
+                    time: 2,
+                    shadeClose: true
+                });
+                return false;                
+            }           
+            
+            if (doublepwd !== pwd) {
+                layer.open({
+                    content: '密码输入不一致',
+                    time: 1,
+                    shadeClose: true
+                });
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "../login/resetpwdaction",
+                data: {
+                    "phone": phone,
+                    "pwd": pwd
+                },
+                success: function (msg) {                   
+                    var data = JSON.parse(msg);
+                    if ('没有错误' == data.error.msg) {
+                        location.href = "../login/index";
+                    } else {
+                        layer.open({
+                            content: data.error.msg,
+                            time: 2,
+                            shadeClose: true
+                        });
+                    }
+                }
+            });
+        });
+    });
+</SCRIPT>
+{/literal}
+{/block}

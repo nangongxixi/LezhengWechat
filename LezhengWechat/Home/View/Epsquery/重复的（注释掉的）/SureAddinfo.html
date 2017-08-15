@@ -1,0 +1,90 @@
+{extends "../Common/default.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>个人事项
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div> 
+    <div class="baibg all_padd">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">基本信息</div>
+            <div class="clear"></div> 
+        </div>
+        <div class="jianj"></div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">业务名称：</span>&nbsp;<span class="input_box all_tex input_title" id="yewmc"></span>         
+        </div>       
+        <div class="input_padd input_paddmin">
+            <span class="input_title">预约人：</span>&nbsp;&nbsp;&nbsp; <span class="input_box all_tex input_title" id="people"></span>         
+        </div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">手机号码：</span>&nbsp;<span class="input_box all_tex input_title" id="phone"></span>               
+        </div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">详细地址：</span>&nbsp;<span class="input_box all_tex input_title" id="address"></span>   
+        </div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">预约时间：</span>&nbsp;<span class="input_box all_tex input_title" id="choosetime"></span>    
+        </div>      
+        <div class="jianj"></div>
+    </div>
+    <div class="conntbottom_line"></div>
+    <div class="fenge"></div>
+    <div class="baibg message_kongge">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">留言内容：</div>
+            <div class="clear"></div> 
+        </div>
+        <div class="input_padd input_paddmin">
+            <div class="all_tex left input_title" id="message"></div>           
+            <div class="clear"></div> 
+        </div>      
+    </div>
+    <div class="conntbottom_line"></div>
+    <div class="mianzxy input_title">
+        <input type="checkbox" name="isagree" id="isagree" checked="checked"/> 我已阅读并同意
+        <a href="../epsquery/agreement"><span class="mianzxy_text">《免责协议》</span></a>
+        <div class="mianzxy_text">● 请核对信息，我们将与您取得联系，请耐心等待。</div>
+    </div>
+    <div class="submit_button" id="submit">确认提交</div>
+</div>
+
+<SCRIPT type="text/javascript">
+
+    $(function () {
+        var yewmc = sessionStorage.getItem('yewmc');
+        var people = sessionStorage.getItem('people');
+        var phone = sessionStorage.getItem('phone');
+        var address = sessionStorage.getItem('address');
+        var choosetime = sessionStorage.getItem('choosetime');
+        var message = sessionStorage.getItem('message');
+        $("#yewmc").html(yewmc);
+        $("#people").html(people);
+        $("#phone").html(phone);
+        $("#address").html(address);
+        $("#choosetime").html(choosetime);
+        $("#message").html(message);
+        $("#submit").on("click", function () {
+            location.href = "../epsquery/submitsuccess";
+            
+            //todo            
+            
+            $.ajax({
+                type: "POST",
+                url: "../epsquery/addqueryaction",
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    if (data.msgcount != 0) {
+                        $("#wd").html(data.msgcount);
+                        location.href = "../epsquery/submitsuccess";
+                    }
+                }
+            });
+        });
+    });
+
+</SCRIPT>
+
+{/block}

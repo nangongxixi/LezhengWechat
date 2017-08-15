@@ -1,0 +1,42 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>用户评论
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>    
+    <div class="baibg all_text all_padd" style="padding:3.5% 0">
+        <div id="yonghuDP"></div>
+    </div>
+    <div class="bottom_line"></div>
+</div>
+
+<SCRIPT type="text/javascript">
+    $(function () {
+        //获取“评论”
+        var shixiangcode = sessionStorage.getItem('shixiangcode');
+        $.ajax({
+            type: "POST",
+            url: "../Epsquery/YonghuDPAction",
+            data: {
+                "page": 1,
+                "shixiangcode": shixiangcode
+            },
+            success: function (msg) {
+                $("#yonghuDP").html("");
+                var data = JSON.parse(msg);
+                data.datalist = data.datalist.reverse();
+                $.each(data.datalist, function (i) {
+					var imgico = "{$smarty.const.DEFAULT_URL}api/v1/Files?filename="+data.datalist[i].picurl;
+					if(data.datalist[i].picurl == null || data.datalist[i].picurl == ''){
+						imgico = "{$smarty.const.IMG_URL}toux.png";
+					}
+                    $("#yonghuDP").prepend('<div class="pingjia_box"><div class="left pingjia_left"><img src="' + imgico + '" class="userheadimg setinfo_headimg pingjiahead"></div><div class="right pingjia_right"><div class="pingjia_title right"><span class="left">' + data.datalist[i].nickname + '</span><span class="right pingjia_date">' + data.datalist[i].commentstime + '</span></div><div class="clear"></div><div class="pingjia_content right">' + data.datalist[i].contents + '</div></div></div><div class="clear"></div><div class="bottom_line pingjialine"></div><div class="clear"></div>');
+                });
+            }
+        });
+    });
+</SCRIPT>
+{/block}

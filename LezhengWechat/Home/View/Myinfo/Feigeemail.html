@@ -1,0 +1,20 @@
+{extends "../Common/Feigenull.html"}
+{block name="main"}
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>个人中心
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div> 
+    <!--
+    <img src="{$smarty.const.IMG_URL}feigeemail.png" class="">    
+    -->
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+        //点击具体部门的时候
+        $(".feigenull_bg").on("click", function () {
+            location.href = "../myinfo/orderlist";
+        });
+    });
+</SCRIPT>
+{/block}

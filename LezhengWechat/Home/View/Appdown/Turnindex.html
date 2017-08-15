@@ -1,0 +1,59 @@
+    {extends "../Common/default.html"}
+    {block name="main"}
+    <div class="contt">
+        <div class="navstyle">
+            <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>App下载
+            <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+        </div>    
+        <div class="appdown_bg"> 
+            <img src="{$smarty.const.IMG_URL}Android.jpg" class="appdown_box"> 
+            <a id="a_android_load"><img src="{$smarty.const.IMG_URL}Android.png" class="appdown_button" onclick="android_apkdownload();"></a>
+        </div>    
+    </div>
+{literal}
+    <script type="text/javascript">
+        browser = {
+            versions: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {//移动终端浏览器版本信息
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        };
+        function isWeiXin() {
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function android_apkdownload() {
+            if (isWeiXin()) {
+                $("#a_android_load").attr("href") == '#';
+                alert("请点击右上角的【…】，选择【在浏览器打开】进行下载");
+            } else {
+                $("#a_android_load").attr("href", "https://at.umeng.com/nGrGza");
+            }
+        }
+        function iphone_apkdownload() {
+            if (isWeiXin()) {
+                $("#a_iphone_load").attr("href") == '#';
+                alert("请点击右上角的【…】，选择【在浏览器打开】进行下载");
+            } else {
+                $("#a_iphone_load").attr("href", "https://at.umeng.com/ObiKji");
+            }
+        }
+    </script>
+{/literal}
+    {/block}

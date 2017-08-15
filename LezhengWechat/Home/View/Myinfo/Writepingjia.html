@@ -1,0 +1,92 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+<script type="text/javascript" src="{$smarty.const.JS_URL}rating_simple.js"></script>
+<link href="{$smarty.const.CSS_URL}rating_simple.css" rel="stylesheet" type="text/css">
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>发表评价
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div> 
+    <div class="fenge"></div>
+    <div class="baibg mianzexy_padd">
+        <textarea name="content" class="pingjia_area" id="textarea" placeholder="请告诉我们，您愿意或不愿意推荐的原因…"></textarea>
+    </div>
+    <div class="fenge"></div>
+    <div class="pingjia_star baibg mianzexy_padd">
+        <div class="pingjia_star_title left">综合评价</div>
+        <div class="star_st ">
+            <input name="my_input" value="5" id="rating_simple1" type="text" style="display: none" class="">                 
+        </div>
+    </div>
+</div>
+<div class="conntbottom_line"></div>
+<div class="submit_buttonhui" id="submit" onclick="">发表评价</div>
+
+<SCRIPT type="text/javascript">
+
+    $(function () {        
+        $("#rating_simple1").webwidget_rating_simple({
+            rating_star_length: '5',
+            rating_initial_value: '5', //默认几星
+            rating_function_name: '', //this is function name for click
+            directory: '{$smarty.const.IMG_URL}'
+        });
+        //改变按钮颜色
+        $("#textarea").keyup(function () {
+            var textarea = $("#textarea").val();
+            var rating_simple1 = $("#rating_simple1").val();
+            if (textarea !== '') {
+                $(".submit_buttonhui").attr("class", "").addClass("submit_button");
+            } else {
+                $(".submit_button").attr("class", "").addClass("submit_buttonhui");
+            }
+        });
+        //点击提价按钮
+        $(document).on("click", ".submit_button", function () {
+            var orderid = "{$smarty.get.orderid}";
+            var contents = $.trim($("#textarea").val());           
+            var starvalue = $("#rating_simple1").val();
+
+            if (contents.length < 1) {
+                layer.open({
+                    content: '评价不能为空',
+                    time: 1
+                });
+            } else {                
+                $.ajax({
+                    type: "POST",
+                    url: "../../../myinfo/WritepingjiaAction",
+                    data: {
+                        "orderid": orderid,
+                        "contents": contents,
+                        "starvalue": starvalue                       
+                    },
+                    success: function (msg) {                       
+                        var data = JSON.parse(msg);
+                        if (data.result == 1) {
+                            layer.open({
+                                content: '评价成功',
+                                time: 1,
+                                end: function () {
+                                    location.href = "../../../myinfo/SuccessPingj";
+                                }
+                            });
+
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+
+
+
+
+
+</SCRIPT> 
+
+
+
+{/block}

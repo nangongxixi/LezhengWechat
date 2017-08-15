@@ -1,0 +1,36 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>证件类型
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>      
+    <div class="all_padd input_itemselect">        
+        <div id="areainfo">
+            <div class="area_selectitem" onclick="" id="1">身份证</div>
+        </div>
+        <div class="clear"></div>
+    </div>    
+</div>
+
+<SCRIPT type="text/javascript">
+    //保存被点击的值并跳转到上一页    
+    $(function () {
+       
+    });
+
+    //点击选项并保存项目
+    $(document).on("click", ".area_selectitem", function () {
+        var zhengjianName = $(this).html();
+        var zhengjianID = $(this).attr("id");
+        //var areaid = $(this).attr("id");
+        sessionStorage.setItem('zhengjianName', zhengjianName);
+        sessionStorage.setItem('zhengjianID', zhengjianID);
+        //sessionStorage.setItem('areaid', areaid);
+        self.location=document.referrer;
+    });
+
+</SCRIPT>
+
+{/block}

@@ -1,0 +1,61 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>取消订单
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>
+    <div class="clear"></div>
+    <div class="baibg all_padd">
+        <div class="styled-select">
+            <select id="select1">
+                <option value="">请选择取消的原因</option>
+                <option value="1">未完全了解情况</option>
+                <option value="2">事情已妥善处理</option>
+                <option value="3">其他</option>   
+            </select>
+        </div>
+        <div class="submit_button">确定</div>
+        <div class="order_padd"></div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".submit_button").click(function () {           
+            var orderid = "{$smarty.get.orderid}";
+            var cancelcause = $("#select1  option:selected").html();           
+            if (cancelcause !== '请选择取消的原因') {
+                $.ajax({
+                    type: "POST",
+                    url: "../../../myinfo/cancelorderaction",
+                    data: {
+                        "orderid": orderid,
+                        "cancelcause": cancelcause                        
+                    },
+                    success: function (msg) {                       
+                        var data = JSON.parse(msg);
+                        if (data.result == 1) {
+                            layer.open({
+                                content: '取消成功',
+                                time: 1,
+                                end:function(){
+                                    location.href = "../../../myinfo/orderlist";
+                                }
+                            });                            
+                        }
+                    }
+                });
+            } else {
+                layer.open({
+                    content: '请选择取消原因',
+                    time: 1
+                });
+            }
+        });
+    });   
+</script>
+
+{/block}

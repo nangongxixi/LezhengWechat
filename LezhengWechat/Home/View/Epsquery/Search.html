@@ -1,0 +1,97 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>事项搜索
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div> 
+    <div class="all_padd sear_box">     
+        <input type="text" name="sear" value="" placeholder="请输入关键字…" id="sear" class="sear_input" autofocus/>
+        <img src="{$smarty.const.IMG_URL}searimg.png" class="searimg" onclick="">
+        <div class="sear_button">搜索</div>
+        <img src="{$smarty.const.IMG_URL}del.png" class="delinput sear_del" style="display: none">
+    </div>
+    <div class="baibg">
+        <div class="bottom_line"></div>
+        <div id="shixiangitem"></div>
+        <div class="bottom_line"></div>
+        <div class="clear"></div>
+    </div>    
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {	
+		
+        //删除输入
+        $(".sear_del").click(function () {
+            $("#sear").val('');
+            sessionStorage.removeItem('sear');
+            $(".sear_del").css("display", "none");
+        });
+
+        //输入框获取光标时的状态
+        $("#sear").focus(function () {
+            var sear = $("#sear").val();
+            if (sear != '') {
+                $(".sear_del").css("display", "block");
+            } else {
+                $(".sear_del").css("display", "none");
+            }
+        });
+
+        //输入框获键盘弹起的状态
+        $("#sear").keyup(function () {
+            var sear = $("#sear").val();
+            sessionStorage.setItem('sear', sear);
+            if (sear != '') {
+                $(".sear_del").css("display", "block");
+            } else {
+                $(".sear_del").css("display", "none");
+            }
+        });
+
+        //获取搜索结果
+        $(".sear_button").on("click", function () {
+            var keyword = $("#sear").val();
+            var areacode = "{$smarty.session.areacode}";			
+            $.ajax({
+                type: "POST",
+                url: "../Epsquery/SearitemAction",
+                data: {
+                    "keyword": keyword,
+                    "areacode": areacode
+                },
+                success: function (msg) {
+                    $("#shixiangitem").html("");
+                    var data = JSON.parse(msg);
+                    data.datalist = data.datalist.reverse();
+					sessionStorage.setItem('shixiangitem', shixiangitem);
+					if (data.datalist.length==0) {
+						$("#shixiangitem").html("<div class='myyuyue_null'>暂无搜索结果…</div>");
+					}
+                    $.each(data.datalist, function (i) {
+						var imgsrc = '{$smarty.const.DEFAULT_URL}api/v1/Files?filename=' + data.datalist[i].picurl;
+						if(data.datalist[i].picurl == null || data.datalist[i].picurl == ''){
+							imgsrc = "{$smarty.const.IMG_URL}toux.png";
+						}
+                        $("#shixiangitem").prepend('<div onclick="" class="shixiangitem shixiang_line" shixiangcode="' + data.datalist[i].code + '" yewmc="'+ data.datalist[i].title +'"><img src="'+imgsrc+'" class="shixiangicon"><span class="input_title bumentitle">' + data.datalist[i].title + '</span></div>');
+					});
+                }
+            });
+        });
+		
+		
+        //点击具体事项的时候
+        $(document).on("click", ".shixiangitem", function () {
+            var shixiangcode = $(this).attr("shixiangcode");
+			var imgsrc = $(this).find("img").attr("src");
+			sessionStorage.setItem('imgsrc', imgsrc);
+            sessionStorage.setItem('shixiangcode', shixiangcode);
+            location.href = "../Epsquery/shixianginfo";
+        });
+
+    });
+
+</SCRIPT>
+
+{/block}

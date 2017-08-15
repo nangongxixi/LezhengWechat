@@ -1,0 +1,104 @@
+{extends "../Common/MyinfoDefault.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>个人中心
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div> 
+    <div class='head_box'>
+        <div class="myinfo_headimg"><img src="
+		{if $smarty.session.user.headpath==''}
+		{$smarty.const.IMG_URL}toux.png
+		{else}
+		{$smarty.const.DEFAULT_URL}api/v1/Files?filename={$smarty.session.user.headpath}
+		{/if}
+		" class="userheadimg myinfo_headimg_border "></div>   
+        <div class="myinfo_text input_title all_text" id="username"></div><div class="myinfo_name">成都市<span id="area"></span></div>  
+    </div>
+    <!--按钮begin-->
+    <div class="myinfo_button" id="feigechuanshu">
+        <div><img src="{$smarty.const.IMG_URL}myinfo_fgcs.png" class="myinfo_ico"></div> 
+        <div class="input_title"><span class="left">飞鸽传书</span>&nbsp;&nbsp;<span class="feigecs_weid left" style="display:none">&nbsp;&nbsp;<span id="weid"></span>&nbsp;条未读</span></div>         
+        <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="myinfo_jiantou"></div>            
+    </div> 
+    <div class="myinfo_button" id="orderlist">
+        <div><img src="{$smarty.const.IMG_URL}myinfo_dd.png" class="myinfo_ico"></div> 
+        <div class="input_title">&nbsp;我的订单</div>         
+        <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="myinfo_jiantou"></div>
+    </div> 
+    <div class="myinfo_button" id="myyuyue">
+        <div><img src="{$smarty.const.IMG_URL}myinfo_yy.png" class="myinfo_ico"></div> 
+        <div class="input_title">&nbsp;我的预约</div>         
+        <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="myinfo_jiantou"></div>            
+    </div> 
+    <div class="myinfo_button" id="gerensz">
+        <div><img src="{$smarty.const.IMG_URL}myinfo_sz.png" class="myinfo_ico"></div> 
+        <div class="input_title">&nbsp;个人设置</div>         
+        <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="myinfo_jiantou"></div>            
+    </div>
+	{if $smarty.session.returnindex.myinfo == 'true'}
+		<div class="return_index" id="return_index"></div>
+	{/if}
+	{session("returnindex.myinfo",null)}
+	{include file="../Common/bottom.html"}
+    <!--按钮end-->
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+		
+		//给区域赋值		
+		var area = "{$smarty.session.user.areaname}"; 
+		$("#area").html(area);		
+        
+        //名称
+        var username = "{$smarty.session.user.username}";
+        if (username !== ''){
+            $("#username").html(username);
+        }else{
+			$("#username").html("暂无");
+		}
+        //点击头像
+        $(".userheadimg").on("click", function () {
+            $(this).addClass("baibg").siblings().removeClass("baibg");
+            location.href = "../myinfo/setinfo";
+        });        
+        //选择区域
+        $("#area").on("click", function () {
+            $(this).addClass("baibg").siblings().removeClass("baibg");
+            location.href = "../need/AddressAreaSelect";
+        });
+        //点击具体部门的时候
+        $("#feigechuanshu").on("click", function () {
+            $(this).addClass("baibg").siblings().removeClass("baibg");
+            location.href = "../myinfo/feigechuanshu";
+        });
+        //点击具体部门的时候
+        $("#orderlist").on("click", function () {
+            $(this).addClass("baibg").siblings().removeClass("baibg");
+            location.href = "../myinfo/orderlist";
+        });
+        //点击具体部门的时候
+        $("#myyuyue").on("click", function () {
+            $(this).addClass("baibg").siblings().removeClass("baibg");
+            location.href = "../myinfo/myyuyue";
+        });
+        $("#gerensz").on("click", function () {
+            $(this).addClass("baibg").siblings().removeClass("baibg");
+            location.href = "../myinfo/setinfo";
+        });
+        $.ajax({
+            type: "POST",
+            url: "../myinfo/WeiduAction",           
+            success: function (msg) {               
+                var data = JSON.parse(msg);
+                if (data.count !==0) {
+                    $(".feigecs_weid").css("display","block");
+                    $("#weid").html(data.count);
+                }
+            }
+        });
+    });
+	
+</SCRIPT>
+{/block}

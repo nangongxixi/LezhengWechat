@@ -1,0 +1,73 @@
+{extends "../Common/default.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>区域选择
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div style="line-height: 260%; padding-left: 3.5%; font-weight: bold" class="baibg input_title">成都市</div>    
+    <div class="all_padd input_itemselect">        
+        <div id="areainfo"></div>
+        <div class="clear"></div>
+    </div>    
+</div>
+
+<SCRIPT type="text/javascript">
+	//保存被点击的值并跳转到上一页    
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "../need/AreaSelectAction",
+            success: function (msg) {
+                var data = JSON.parse(msg);
+                data.datalist = data.datalist.reverse();
+                $.each(data.datalist, function (i) {
+                    $("#areainfo").prepend('<div class="area_selectitem" onclick="" areacode="'+ data.datalist[i].areacode +'"   id="' + data.datalist[i].areaid + '" name="'+ data.datalist[i].areaname +'">' + data.datalist[i].areaname + '</div>');
+                });
+                //改变当前选中的项目的背景        
+                var areaname = "{$smarty.session.user.areaname}";
+				var qujianareaid = sessionStorage.getItem('qujianareaid');
+				$(".area_selectitem[name="+areaname+"]").removeClass("area_selectitem").addClass("area_selectitemred");
+				//$(".area_selectitem:contains("+areaname+")").removeClass("area_selectitem").addClass("area_selectitemred");
+				if(qujianareaid=='' || qujianareaid==null){				
+					$(".area_selectitem[name="+areaname+"]").removeClass("area_selectitem").addClass("area_selectitemred");					
+				}else{							
+					$("#" + qujianareaid).addClass("area_selectitemred").siblings().removeClass("area_selectitemred").addClass("area_selectitem");;					
+				}
+            }
+        });
+    });    
+
+    //点击选项并保存项目
+    $(document).on("click", ".area_selectitem", function () {
+        var qujianarea = $(this).html();
+        var qujianareaid = $(this).attr("id");
+        var qujianareacode = $(this).attr("areacode");
+        sessionStorage.setItem('qujianarea', qujianarea);
+        sessionStorage.setItem('qujianareacode', qujianareacode);  
+        sessionStorage.setItem('qujianareaid', qujianareaid);  
+        var loginaction = sessionStorage.getItem('loginaction');
+        if (loginaction == 'index'){
+            sessionStorage.removeItem("loginaction"); 
+            location.href = "../index/index";
+            window.close();
+        } else {            
+            self.location=document.referrer;
+        }
+        //把js获取到的sessionstorage区域值保存到PHP的session里面
+        $.ajax({
+            type: "POST",
+            url: "../need/BaocunAreaAction",
+            data: {
+                "qujianarea": qujianarea               
+            }
+        });
+    });
+    $(document).on("click", ".area_selectitemred", function () {
+        self.location = document.referrer;
+    });
+
+</SCRIPT>
+
+{/block}

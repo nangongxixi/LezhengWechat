@@ -1,0 +1,24 @@
+[ 2017-03-02T09:24:22+08:00 ] 127.0.0.1 /index.php/myinfo/orderinfoaction
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+ERR: 无法加载模块:Myinfo
+
+[ 2017-03-02T09:28:04+08:00 ] 127.0.0.1 /index.php/myinfo/orderinfoaction
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+ERR: 无法加载模块:Myinfo
+
+[ 2017-03-02T10:15:35+08:00 ] 127.0.0.1 /index.php/myinfo/orderinfoaction
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+ERR: 无法加载模块:Myinfo
+
+[ 2017-03-02T10:15:35+08:00 ] 127.0.0.1 /index.php/myinfo/orderstepaction
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+ERR: 无法加载模块:Myinfo
+

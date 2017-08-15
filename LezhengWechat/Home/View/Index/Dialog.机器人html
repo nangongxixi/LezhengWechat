@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+        <meta name="keywords" content="乐政微官网" />
+        <meta name="description" content="乐政微官网"/>
+        <title>"乐政微官网"</title>
+        <link type="text/css" rel="stylesheet" href="{$smarty.const.CSS_URL}style.css" />
+        <script type="text/javascript" src="{$smarty.const.JS_URL}jquery-2.1.0.min.js"></script>
+        <link rel="stylesheet" href="{$smarty.const.CSS_URL}layer.css" />
+        <script type="text/javascript" src="{$smarty.const.JS_URL}layer.js"></script>
+		<!--聊天窗口的样式-->
+		<link rel="stylesheet" href="{$smarty.const.CSS_URL}dialog.css" />
+        <script type="text/javascript" src="{$smarty.const.JS_URL}chat.js"></script>
+		{if empty($smarty.session.user.uid)}{header("location:../login/index")}{/if}			
+    </head>
+    <body >
+        <div class="navstyle">
+            <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>人工咨询
+            <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+        </div>
+        <section class="chat-box">
+            <span class="chat-trip">人工在线小乐为您服务</span>
+            <div class="bubbleDiv"></div>
+        </section>
+        <footer class="chat-edit clearfix">
+            <p class="chat-info" placeholder="想咨询他什么内容..." contenteditable="true"></p>
+            <!--<span class="uploadImg fl"><input type="file" name="uploadfile" class="uploadfile"></span>-->
+            <button class="send-btn fr">发送</button>
+        </footer> 
+        <script>
+            $(document).ready(function () {
+                /*
+                 左侧 接收别人信息 调用，三个参数：leftBubble，头像路径，内容
+                 chat(element,imgSrc,doctextContent)
+                 */
+                $(".send-btn").click(function () {
+                    //右侧 自己发 调用，只需填一个参数"rightBubble"
+                    chat("rightBubble");
+                    //清空输入框
+                    $('.chat-info').html('');
+
+                    //获取输入传给对方
+                    var keyword = $(".rightBubble").html();
+                    $.ajax({
+                        type: "POST",
+                        url: "../index/dialogaction",
+                        data: {
+                            "keyword": keyword
+                        },
+                        success: function (msg) {
+                            chat("leftBubble", "../../../public/home/img/doctor.png", msg);
+                        }
+                    });
+
+                });
+            });
+        </script>
+        {include file="../Common/bottom.html"}
+    </body>
+</html>

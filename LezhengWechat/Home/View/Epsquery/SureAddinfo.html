@@ -1,0 +1,147 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>信息确认
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div> 
+    <div class="baibg all_padd">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">基本信息</div>
+            <div class="clear"></div> 
+        </div>
+        <div class="jianj"></div>
+		<div class="orderinfo_xqitem input_title">
+            <div class="orderinfo_con"><div class="input_title" id="yewmc" style="margin-left:85px">------</div></div>
+            <div class="orderinfo_xqtitle">业务名称：</div>
+        </div>	
+        <div class="clear"></div>
+		<div class="orderinfo_xqitem input_title">
+            <div class="orderinfo_con"><div class="input_title" id="people" style="margin-left:85px">------</div></div>
+            <div class="orderinfo_xqtitle">预约人：</div>
+        </div>	
+        <div class="clear"></div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">手机号码：</span>&nbsp;<span class="input_box all_tex input_title" id="phone"></span>               
+        </div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">办事区域：</span>&nbsp;<span class="input_box all_tex input_title" id="area"></span>               
+        </div>
+        <div class="input_padd input_paddmin">
+            <span class="input_title">取件区域：</span>&nbsp;<span class="input_box all_tex input_title" id="qujianarea"></span>               
+        </div>
+		<div class="orderinfo_xqitem input_title">
+            <div class="orderinfo_con"><div class="input_title" id="address" style="margin-left:85px">------</div></div>
+            <div class="orderinfo_xqtitle">详细地址：</div>
+        </div>	
+        <div class="clear"></div> 
+        <!--
+        <div class="input_padd input_paddmin">
+            <span class="input_title">预约时间：</span>&nbsp;<span class="input_box all_tex input_title" id="choosetime"></span>    
+        </div> 
+        -->
+        
+        <div class="jianj"></div>
+    </div>
+    <div class="conntbottom_line"></div>
+    <div class="fenge"></div>
+    <div class="baibg message_kongge">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">留言内容</div>
+            <div class="clear"></div> 
+        </div>
+        <div class="input_padd input_paddmin">
+            <div class="all_tex left input_title" id="message"></div>           
+            <div class="clear"></div> 
+        </div>      
+    </div>
+    <div class="conntbottom_line"></div>
+    <div class="mianzxy input_title">
+        <input type="checkbox" name="isagree" id="isagree" checked="checked"/> 我已阅读并同意
+        <a href="../epsquery/agreement"><span class="mianzxy_text">《免责协议》</span></a>
+        <div class="mianzxy_text">● 请核对信息，我们将与您取得联系，请耐心等待。</div>
+    </div>
+    <div class="submit_button" id="submit">确认提交</div>
+</div>
+
+<SCRIPT type="text/javascript">
+
+    $(function () {        
+        var productname = sessionStorage.getItem('yewmc');
+        var productcode = sessionStorage.getItem('shixiangcode');     
+        var people = sessionStorage.getItem('people');
+        var phone = sessionStorage.getItem('phone');		
+        //办事区域		
+        var area = sessionStorage.getItem('banshiarea');
+		if(area == null){			
+			area = "{$smarty.session.area}";
+		}
+		//取件区域		
+        var qujianarea = sessionStorage.getItem('qujianarea');
+		if(qujianarea == null){			
+			qujianarea = "{$smarty.session.user.areaname}";
+		}   
+        var address = sessionStorage.getItem('address');
+        if(address == null){
+			address = "{$smarty.session.user.address}";	
+		}   
+        var message = sessionStorage.getItem('message');         
+        $("#yewmc").html(productname);
+        $("#people").html(people);
+        $("#qujianarea").html(qujianarea);
+        $("#area").html(area);
+        $("#phone").html(phone);
+        $("#address").html(address);        
+        $("#message").html(message);		
+        $("#submit").on("click", function () {  
+            var qujianareacode = sessionStorage.getItem('qujianareacode');
+			if(qujianareacode==null){
+				qujianareacode = "{$smarty.session.user.area}";
+			}
+			var banshiareacode = sessionStorage.getItem('banshiareacode');
+			if(banshiareacode==null){
+				banshiareacode = "{$smarty.session.areacode}";
+			}
+            if ($("#isagree").is(':checked')) {
+            } else {
+                layer.open({
+                    content: '必须选择已阅读',
+                    time: 2,
+                    shadeClose: true
+                });
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "../need/shixiangaction",
+                data: {
+                    "productname": productname,
+                    "productcode": productcode,
+                    "people": people,
+                    "phone": phone,
+                    "address": address,                    
+                    "message": message,
+                    "qujianarea": qujianareacode,
+                    "areacode": banshiareacode                    
+                },
+                success: function (msg) {
+					//alert(msg);
+                    var data = JSON.parse(msg);
+                    if (data.msgcount != 0) { 
+						//推送订单通知		
+						$.ajax({
+							type: "GET",
+							url: "../need/dingdantongzhi"				
+						});
+                        location.href = "../epsquery/submitsuccess";
+                    }
+                }
+            });           
+        });
+    });
+
+</SCRIPT>
+
+{/block}

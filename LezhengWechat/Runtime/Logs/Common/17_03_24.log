@@ -1,0 +1,12 @@
+[ 2017-03-24T10:01:12+08:00 ] 112.74.29.131 /index.php/wechat/wx.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Wechat
+
+[ 2017-03-24T10:17:48+08:00 ] 112.74.29.131 /index.php/wechat/wx.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+ERR: 无法加载模块:Wechat
+

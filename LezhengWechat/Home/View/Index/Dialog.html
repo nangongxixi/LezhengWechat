@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+        <meta name="keywords" content="乐政微官网" />
+        <meta name="description" content="乐政微官网"/>
+        <title>"乐政微官网"</title>
+        <!--webim相关配置-->
+        <script type="text/javascript" src="{$smarty.const.JS_URL}huanxin/webim.config.js"></script>
+        <!--sdk相关的js-->
+        <script type='text/javascript' src='{$smarty.const.JS_URL}huanxin/strophe-1.2.8.min.js'></script>
+        <script type="text/javascript" src="{$smarty.const.JS_URL}huanxin/demo-1.4.5.js"></script>
+        <script type="text/javascript" src="{$smarty.const.JS_URL}huanxin/websdk-1.4.5.js"></script>
+        <!-- Jquery相关的js -->
+        <script type="text/javascript" src="{$smarty.const.JS_URL}huanxin/jquery-1.11.2.min.js"></script>
+        <!--页面方法JS-->		
+        <script type="text/javascript" src="{$smarty.const.JS_URL}huanxin/main.js"></script>
+		{literal}
+        <script type="text/javascript">
+            $(function () {				
+				//默认注册
+				register();
+				//默认加好友
+				addFriends();
+				//默认登陆
+                login();
+				//拉取聊天记录
+				getCord();
+				//滚动条始终置于底部				
+				$("#message,#fasong").click(function(){
+					$("#content").scrollTop($("#content").height());
+					$('#content').scrollTop( $('#content')[0].scrollHeight);
+					//保持滚动条底部
+					$(window).resize(function() {
+						$("#content").scrollTop($("#content").height());
+						$('#content').scrollTop( $('#content')[0].scrollHeight);
+					});
+				});
+				//加好友后刷新页面				
+				window.onload=function(){
+									if (location.href.indexOf("?xyz=")<0)
+									{
+										location.href=location.href+"?xyz="+Math.random();
+									}
+								}
+            });
+        </script>
+		{/literal}
+		<link rel="stylesheet" type="text/css" href="{$smarty.const.CSS_URL}style.css">
+        <!--CSS-->
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.CSS_URL}huanxin/login.css">
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.CSS_URL}huanxin/file.css">
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.CSS_URL}huanxin/emoji.css">
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.CSS_URL}huanxin/friends.css">
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.CSS_URL}huanxin/chatwindow.css">
+        <link href="{$smarty.const.CSS_URL}huanxin/tabStyle.css" rel="stylesheet" type="text/css">
+        <!--聊天窗口的样式-->       
+        <link rel="stylesheet" href="{$smarty.const.CSS_URL}dialog.css" />
+    </head>
+    <body style="background-color:#f1f1f1" >   
+    <!--好友和聊天界面-->
+    <input type="hidden" id="hideClass" value="t1">
+    <input type="hidden" id="hideFriends" value="kefu_01" fanzhe="{$smarty.session.user.phonenumber}">
+	<!--<input type="hidden" id="hideFriends" value="kefu_01" fanzhe="{$smarty.session.openid}">-->
+    <div style="width: 100%;height: 100%;"id="main">      
+        <!--聊天界面 -->
+        <div class="chatwindow">
+            <!--接收人 -->
+            <!--<div class="fromDiv"><p id="from" align="center"></p></div>-->
+            <div class="fromDiv" style="display:none">
+                <ul class="tabs">
+                </ul>
+            </div>
+            <!--消息记录 -->
+            <div id="content" headpic="{$smarty.const.DEFAULT_URL}api/v1/Files?filename=" headpic1 = "{$smarty.session.user.headpath}">
+				 <section class="chat-box">
+                        <span class="chat-trip">人工在线小乐为您服务</span>
+                        <div class="bubbleDiv"></div>
+                    </section>
+            </div>            
+            <!--输入框 -->
+            <div class="inputMessage">
+                <textarea id="message"></textarea>
+            <!--发送按钮-->
+				<div class="sendMessage">
+					 <div class="sendMessage2">
+						<input class="btn" type="button" id="fasong" value="发送" onclick="sendMessage(),chat()"/>
+					 </div>
+				</div>
+			</div>
+        </div>		
+    </div>
+	{if $smarty.session.returnindex.dialog == 'true'}
+		<div class="return_index" id="return_index"></div>
+	{/if}
+	{session("returnindex.dialog",null)}
+	{include file="../Common/bottom.html"} 
+
+</body>
+</html>

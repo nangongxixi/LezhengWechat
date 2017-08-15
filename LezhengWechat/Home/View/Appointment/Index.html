@@ -1,0 +1,33 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>预约说明
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>
+    <div class="baibg mianzexy_padd input_title">
+        <strong>预约规则说明：</strong><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;1, 同一身份证只能预约一次，在预定时间、事项失效前不能再进行预约；<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2, 预约为第二天办理时间，周五无法预约（周六休息日）；<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;3, 预约成功后，凭身份证在政务大厅自助终端取号；<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;4, 累计5次预约成功但未到场办理的，将无法再使用预约功能；<br><br>
+        <strong>时间规则说明：</strong><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;1, 预约成功后，请在预约时间结束前15分钟完成取号，过期将无法取号；<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2, 预约成功后，无法在当天完成取号，预约排号系统次日凌晨更新预约数据；<br>
+    </div>
+    <div class="bottom_line"></div>
+    <div class="submit_button" id="submit">下一步</div>
+	{if $smarty.session.returnindex.appointment == 'true'}
+		<div class="return_index" id="return_index"></div>
+	{/if}
+	{session("returnindex.appointment",null)}	
+</div>
+<script type="text/javascript">
+    $("#submit").on("click", function () {		
+        location.href = "../appointment/bumenlist";
+    });
+</script>
+{/block}
+
+

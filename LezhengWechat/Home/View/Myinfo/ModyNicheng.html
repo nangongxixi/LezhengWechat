@@ -1,0 +1,86 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>修改昵称
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>   
+    <div class="baibg all_padd">
+        <div class="input_padd">
+            <span class="input_title">昵称</span>            
+            <input type="text" name="name" value="{$smarty.session.user.name}" id="name" maxlength="50" class="input_box all_tex address_input"/>
+            <div class="name" style="display: none"><img src="{$smarty.const.IMG_URL}del.png" class="delinput"></div>
+        </div>              
+    </div>       
+    <div class="bottom_line"></div> 
+    <div class="submit_button">确认</div>
+</div>   
+<SCRIPT type="text/javascript">
+    $(function () {
+        $("#modyadd").click(function () {
+            $(this).css("display", "none");
+            $("#name").css("display", "block");
+            var addval = $(this).html();
+            $("#name").val(addval).focus();
+        });
+        //地址
+        $(".name").click(function () {
+            $("#name").val('');
+            sessionStorage.removeItem('name');
+            $(".name").css("display", "none");			
+        });
+        $("#name").focus(function () {
+			$("#name").css("text-align","left");
+            var name = $("#name").val();
+            if (name != '') {
+                $(".name").css("display", "block");
+            } else {
+                $(".name").css("display", "none");
+            }
+        });
+        $("#name").keyup(function () {
+            var name = $("#name").val();
+            sessionStorage.setItem('name', name);
+            if (name != '') {
+                $(".name").css("display", "block");
+            } else {
+                $(".name").css("display", "none");
+            }
+        });
+		
+        //点击确认
+        $(".submit_button").click(function () {
+			var name = $.trim($("#name").val());
+            if (name == '') {
+                layer.open({
+                    content: '昵称不能为空',
+                    time: 2,
+                    shadeClose: true
+                });
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "../myinfo/modymyinfoaction",
+                data: {
+                    "name": name
+                },
+                success: function (msg) {
+                    var data = JSON.parse(msg);
+                    if ('1' == data.result) {
+                        layer.open({
+                            content: '操作成功',                           
+                            shadeClose: true,
+                            time: 1,
+                            end: function () {
+                                location.href = "../myinfo/setinfo";
+                            }
+                        });
+                    }                   
+                }
+            });
+        });
+    });
+</SCRIPT>
+{/block}

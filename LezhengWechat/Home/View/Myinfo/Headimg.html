@@ -1,0 +1,87 @@
+{extends "../Common/baibgdefault.html"}
+{block name="main"}
+<script type="text/javascript" src="{$smarty.const.JS_URL}rating_simple.js"></script>
+<link href="{$smarty.const.CSS_URL}rating_simple.css" rel="stylesheet" type="text/css">
+{literal}
+<style type="text/css">
+    .btn{  
+        background-color: #fff;
+        border: 1px solid #cdcdcd;
+        height: 40px;
+        left: -77px;
+        position: relative;
+        width: 150px
+    } 
+    .file{ position:relative; top:-150px; right:-40px; height:140px; filter:alpha(opacity:0);opacity: 0;width:150px }
+    #localImag{margin-top: 25%}
+</style>
+{/literal}
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>修改头像
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div> 
+    <div class="fenge"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background:#ffffff">
+        <tbody>
+            <tr>
+                <td height="101" align="center">
+                    <div id="localImag"><img id="preview" src="{$smarty.const.IMG_URL}defauhead.png" width="150" height="140" style="display: block"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="padding-top:10px;">
+                    <form action="" name="form" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="doc" onchange="javascript:setImagePreview();" class="file">                                
+                        <input type="submit" value="提交" class="btn">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!--
+<div class="conntbottom_line"></div>-->
+
+<script type="text/javascript">
+    //下面用于图片上传预览功能
+    function setImagePreview(avalue) {
+        var docObj = document.getElementById("doc");
+
+        var imgObjPreview = document.getElementById("preview");
+        if (docObj.files && docObj.files[0])
+        {
+            //火狐下，直接设img属性
+            imgObjPreview.style.display = 'block';
+            imgObjPreview.style.width = '150px';
+            imgObjPreview.style.height = '140px';
+            //imgObjPreview.src = docObj.files[0].getAsDataURL();
+
+            //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+        } else
+        {
+            //IE下，使用滤镜
+            docObj.select();
+            var imgSrc = document.selection.createRange().text;
+            var localImagId = document.getElementById("localImag");
+            //必须设置初始大小
+            localImagId.style.width = "150px";
+            localImagId.style.height = "140px";
+            //图片异常的捕捉，防止用户修改后缀来伪造图片
+            try {
+                localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+            } catch (e)
+            {
+                alert("您上传的图片格式不正确，请重新选择!");
+                return false;
+            }
+            imgObjPreview.style.display = 'none';
+            document.selection.empty();
+        }
+        return true;
+    }
+
+</script>
+{/block}

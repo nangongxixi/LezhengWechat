@@ -1,0 +1,104 @@
+{extends "../Common/baibgdefault.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>我的订单
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>  
+    <div class="order_box baibg all_text input_title">
+        <div class="left order_ico"><img src="{$smarty.const.IMG_URL}newsico3.png"></div>
+        <div class="right order_right order_padd">
+            <div class="order_title right">                               
+                <span class="left ordertitle_font">申领食品经营许可证</span>
+                <span class="right orderinfo_status1">完结</span>
+            </div>
+            <div class="clear"></div>            
+            <div class='feigcs_sj orderinfo_padd'>订单编号： 8165646461313</div>
+            <div class='feigcs_sj'>李晓： 13545456666</div>            
+        </div>
+        <div class='clear'></div>
+        <div class="bottom_line"></div>       
+        <div class='order_cancel_button orderinfo_button'>查看更多</div> 
+        <div class='order_cancel_button'>联系客服</div>        
+        <div class='clear'></div>
+    </div>
+    <div class="fenge fenge_bg"></div>
+    <div class="baibg all_padd input_title">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">订单评价</div>
+        </div>
+        <div class="all_text orderinfo_pj">发生大幅度撒范德萨范德萨范德萨富士达范德萨范德萨范德萨范德萨范德萨范德范德萨范德萨范德萨萨发生的</div>   
+    </div>
+    <div class="fenge fenge_bg"></div>
+    <div class="baibg all_padd input_title">
+        <div class="input_padd bottom_line">
+            <div class="left"><img src="{$smarty.const.IMG_URL}09.png"></div><div class="left jibenxx input_title">受理状态</div>
+            <div class="clear"></div> 
+        </div>
+        <div class="orderinfo_status_box">            
+            <div class="all_text">
+                <div class="orderinfo_status_lvdaico left"></div>
+                <div class="orderinfo_clz orderinfo_text_hei">订单完结</div>               
+                <div class='feigcs_sj'>2017-02-18 15：30：00</div>                
+                <div class="orderinfo_status_info bottom_line yuyue_box right"></div>
+            </div>
+        </div>
+        <div class="clear"></div>                 
+        <div class="all_text">
+            <div class="orderinfo_status_huidaico left"></div>
+            <div class="orderinfo_clz">订单确认</div>
+            <div class="feigcs_sj">您的订单已经开始分派到响应的商家</div>
+            <div class='feigcs_sj'>2017-02-18 15：30：00</div>
+            <div class="orderinfo_status_info bottom_line yuyue_box right"></div>
+        </div>
+        <div class="clear"></div>                 
+        <div class="all_text">
+            <div class="orderinfo_status_huidaico left"></div>
+            <div class="orderinfo_clz">商家接收</div>
+            <div class="feigcs_sj">您的订单已经开始分派到响应的商家</div>
+            <div class='feigcs_sj'>2017-02-18 15：30：00</div>
+            <div class="orderinfo_status_info bottom_line yuyue_box right"></div>
+        </div>
+        <div class="clear"></div>                 
+        <div class="all_text">
+            <div class="orderinfo_status_huiico left"></div>
+            <div class="orderinfo_clz">订单生成中</div>           
+            <div class='feigcs_sj'>2017-02-18 15：30：00</div>
+        </div>        
+    </div> 
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+        //选项卡切换
+        $("#navtab .title li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+            var index = $(this).index();
+            var li = $(this).parent().next().children();
+            $(li[index]).show().siblings().hide();
+            //var lid = $(".active").attr("id");            
+        });
+        //获取数据
+        var areacode = sessionStorage.getItem('areacode');
+        var code = "{$smarty.get.code}";
+        $.ajax({
+            type: "GET",
+            url: "../../../../../Epsquery/ShixiangListAction/areacode/" + areacode + '/code/' + code,
+            success: function (msg) {
+                //alert(msg);
+                var data = JSON.parse(msg);
+                data.datalist = data.datalist.reverse();
+                $.each(data.datalist, function (i) {
+                    $("#shixiangitem").prepend('<div class="shixiangitem shixiang_line"><img src="{$smarty.const.IMG_URL}zxgg.png" class="shixiangicon"><span class="input_title">' + data.datalist[i].title + '</span></div>');
+                });
+            }
+        });
+        //点击具体部门的时候        
+        $(".order_cancel_button").on("click", function () {
+            location.href = "../myinfo/orderxq";
+        });
+    });
+
+</SCRIPT>
+
+{/block}

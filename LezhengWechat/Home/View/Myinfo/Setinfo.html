@@ -1,0 +1,97 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>个人设置
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="fenge"></div>        
+    <div class="baibg all_padd">
+        <div class="setinfo_headbutton" id="headimg">        
+            <div class="input_title">帐号管理</div>         
+            <img src="
+			{if $smarty.session.user.headpath==''}
+			{$smarty.const.IMG_URL}toux.png
+			{else}
+			{$smarty.const.DEFAULT_URL}api/v1/Files?filename={$smarty.session.user.headpath}
+			{/if}
+			" class="userheadimg setinfo_headimg">                
+        </div>
+        <div class="bottom_line"></div>
+        <div class="setinfo_button">        
+            <div class="input_title">用户名<span class="right setinfo_phone">{$smarty.session.user.username}</span> </div>
+        </div>
+        <div class="bottom_line"></div>
+    </div>
+    <div class="setinfo_button setinfo_nichen" id="modynicheng">
+        <div class="all_padd">
+            <div class="input_title">昵称<span class="right setinfo_mingc setinfo_address">{$smarty.session.user.name}</span></div>         
+            <img src="{$smarty.const.IMG_URL}jiantou.png" class="setinfo_jiantou setinfo_jiantou1"> 
+        </div> 
+    </div>
+    <div class="baibg all_padd">
+        <div class="bottom_line"></div>
+        <div class="setinfo_button">        
+            <div class="input_title">手机号码<span class="right setinfo_phone">{$smarty.session.user.phonenumber}</span> </div>
+        </div>           
+    </div>       
+    <div class="fenge"></div>    
+    <div class="baibg all_padd">           
+        <div class="setinfo_button" id="modysex">        
+            <div class="input_title">性别<span class="right setinfo_mingc">{if $smarty.session.user.gender == 1}女{else}男{/if}</span></div>         
+            <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="setinfo_jiantou"></div>            
+        </div>
+        <div class="bottom_line"></div>
+        <div class="setinfo_button" id="modyaddress">        
+            <div class="input_title">常住地址<span class="right setinfo_mingc setinfo_address">{$smarty.session.user.address}</span></div>         
+            <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="setinfo_jiantou"></div>            
+        </div>
+        <div class="bottom_line"></div>
+        <div class="setinfo_button" id="resetpwd">        
+            <div class="input_title">重置密码</div>         
+            <div><img src="{$smarty.const.IMG_URL}jiantou.png" class="setinfo_jiantou"></div>            
+        </div>   
+    </div>
+    <div class="fenge"></div>  
+    <div class="baibg all_padd">           
+        <div class="setinfo_button" id="logout">        
+            <div class="input_title">退出登录</div>
+        </div>
+    </div>
+    <div class="bottom_line"></div>        
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+        $("#headimg").on("click", function () {
+            location.href = "../myinfo/headimg";
+        });
+        $("#modynicheng").on("click", function () {
+            location.href = "../myinfo/modynicheng";
+        });
+        $("#modyphone").on("click", function () {
+            location.href = "../myinfo/modyphone";
+        });
+        $("#modysex").on("click", function () {
+            location.href = "../myinfo/modysex";
+        });
+        $("#modyaddress").on("click", function () {            
+            location.href = "../myinfo/modyaddress";
+        });
+        $("#resetpwd").on("click", function () {
+            location.href = "../login/checkphone";
+        });
+        $("#logout").on("click", function () {
+            sessionStorage.clear();
+            layer.open({
+                content: '<div style="text-align:left">退出后将影响部分功能使用，是否确认退出</div>',
+                btn: ['确认', '取消'],
+                shadeClose: true, //默认：true，是否点击遮罩时关闭层            
+                yes: function () {
+                    location.href = "../login/logout";
+                }
+            });
+        });
+        
+    });
+</SCRIPT>
+{/block}

@@ -1,0 +1,178 @@
+{extends "../Common/feigebg.html"}
+{literal}
+	<style>
+		.content{       
+			margin: 0 auto       
+		}
+		.content .item{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-align:center;
+			-webkit-box-align:center;
+			box-align:center;
+			-webkit-align-items:center;
+			align-items:center;
+			padding:3.125%;
+			border-bottom: 1px solid #ddd;
+			color: #333;
+			text-decoration: none;
+		}
+		.content .item img{
+			display: block;
+			width: 40px;
+			height: 40px;
+			border:1px solid #ddd;
+		}
+		.content .item h3{
+			display: block;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
+			width: 100%;
+			max-height: 40px;
+			overflow: hidden;
+			line-height: 20px;
+			margin: 0 10px;
+			font-size: 1.2rem;
+		}
+		.content .item .date{
+			display: block;
+			height: 20px;
+			line-height: 20px;
+			color: #999;
+		}
+		.opacity{
+			-webkit-animation: opacity 0.3s linear;
+			animation: opacity 0.3s linear;
+		}
+		@-webkit-keyframes opacity {
+			0% {
+				opacity:0;
+			}
+			100% {
+				opacity:1;
+			}
+		}
+		@keyframes opacity {
+			0% {
+				opacity:0;
+			}
+			100% {
+				opacity:1;
+			}
+		}
+	</style>
+{/literal}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>我的预约
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <!--
+    <div class="fenge"></div>
+    <div class="baibg all_padd all_text">        
+        <div class="myyuyue_bg">                
+            <div class="left myyuyue_ico"><img src="{$smarty.const.IMG_URL}collection.png"></div>
+            <div class="all_text left"><span class="myyuyue_title">代开增值税发票</span><br><span class="myyuyue_date">2018-01-24 12:10:00</span></div>                
+            <div class='order_cancel_button myyuyue_text'>删除预约</div> 
+            <div class="clear"></div>
+        </div>
+    </div>
+    -->
+    
+	<div class="content">
+		<div id="myyuyue"></div>
+	</div>
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+		// 页数		
+        var page = 0;       
+        $('.content').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                page++;
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: "POST",
+					url: "../myinfo/myyuyueaction",
+					data: {
+                        "page": page
+                    },
+                    success: function (msg) {
+                        var msg = msg.replace(/\\n/gm, "<br>");//把'\n'正则替换成'<br>'
+                        var data = JSON.parse(msg);
+                        var arrLen = data.datalist.length;                        					
+                        if(arrLen > 0){
+							for(var i=0; i<arrLen; i++){
+								result += '<div class="fenge"></div><div class="baibg all_padd all_text"><div class="myyuyue_bg"><div class="left myyuyue_ico"><img src="{$smarty.const.IMG_URL}yuyueico.png"></div><div class="all_text left myyuyue_titlebox"><span class="myyuyue_title">' + data.datalist[i].servicetypename + '</span><br><span class="myyuyue_date">' + data.datalist[i].operatertime + '</span></div><div onclick="" class="order_cancel_button myyuyue_text" id="' + data.datalist[i].appointmentid + '">删除预约</div><div class="clear"></div></div></div>';
+							};
+							//删除预约
+							$(document).on("click", ".order_cancel_button", function () {
+								var appointmentid = $(this).attr("id");
+								layer.open({
+									content: '您确定要删除吗？',
+									btn: ['确定', '取消'],
+									shadeClose: false, //默认：true，是否点击遮罩时关闭层
+									yes: function () {
+										$.ajax({
+											type: "POST",
+											url: "../myinfo/DelyuyueAction",
+											data: {
+												"appointmentid": appointmentid
+											},
+											success: function (msg) {
+												var data = JSON.parse(msg);
+												if (data.result == '1') {
+													layer.open({
+														content: '操作成功',
+														time: 1,
+														shadeClose: true,
+														end: function () {
+															location.reload();
+														}
+													});
+												}
+											}
+										});
+									}
+								});
+							});
+                        } else {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // 插入数据到页面，放到最后面
+                            $('#myyuyue').append(result);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 1000);						
+						
+                    },
+                    error: function (xhr, type) {
+                        alert('Ajax error!');
+                        // 即使加载出错，也得重置
+						$(".dropload-down").after('<br>');
+                        me.resetload();
+                    }
+                });
+            }
+        });	
+        //点击具体部门的时候
+        $(".order_cancel_button").on("click", function () {
+            location.href = "../myinfo/MyYuyuenull.";
+        });
+    });
+</SCRIPT>
+
+{/block}

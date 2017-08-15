@@ -1,0 +1,48 @@
+{extends "../Common/defaultRegist.html"}
+{block name="main"}
+
+<div class="contt">
+    <div class="navstyle">
+        <a href="javascript:history.go(-1);" class="navjiantou"><img src="{$smarty.const.IMG_URL}return.png"></a>我的订单
+        <img src="{$smarty.const.IMG_URL}headimg.png" class="headimg">
+    </div>
+    <div class="orderbg">
+        <div class="orderbg_yuan">
+            <div class="wodeyuyuenull"></div>
+        </div>                        
+    </div>
+</div>
+<SCRIPT type="text/javascript">
+    $(function () {
+        //选项卡切换
+        $("#navtab .title li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+            var index = $(this).index();
+            var li = $(this).parent().next().children();
+            $(li[index]).show().siblings().hide();
+            //var lid = $(".active").attr("id");            
+        });
+        //获取数据
+        var areacode = sessionStorage.getItem('areacode');
+        var code = "{$smarty.get.code}";
+        $.ajax({
+            type: "GET",
+            url: "../../../../../Epsquery/ShixiangListAction/areacode/" + areacode + '/code/' + code,
+            success: function (msg) {
+                //alert(msg);
+                var data = JSON.parse(msg);
+                data.datalist = data.datalist.reverse();
+                $.each(data.datalist, function (i) {
+                    $("#shixiangitem").prepend('<div class="shixiangitem shixiang_line"><img src="{$smarty.const.IMG_URL}zxgg.png" class="shixiangicon"><span class="input_title">' + data.datalist[i].title + '</span></div>');
+                });
+            }
+        });
+        //点击具体部门的时候
+        $(".orderbg").on("click", function () {
+            location.href = "../myinfo/setinfo";
+        });
+    });
+
+</SCRIPT>
+
+{/block}
